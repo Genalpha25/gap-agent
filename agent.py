@@ -4,7 +4,6 @@ from google.adk.agents import llm_agent
 from vertexai.preview.reasoning_engines import AdkApp
 from google.adk.tools import agent_tool
 from google.adk.tools.google_search_tool import GoogleSearchTool
-from google.adk.tools import url_context
 
 
 class AgentClass:
@@ -22,15 +21,6 @@ class AgentClass:
             description='Agent specialized in performing Google searches.',
             instruction='Use the GoogleSearchTool to find information on the web.',
             tools=[GoogleSearchTool()],
-        )
-
-        # URL Context Agent
-        gap_discovery_agent_url_context_agent = llm_agent.LlmAgent(
-            name='GAP_Discovery_Agent_url_context_agent',
-            model='gemini-2.5-flash',
-            description='Agent specialized in fetching content from URLs.',
-            instruction='Use the UrlContextTool to retrieve content from provided URLs.',
-            tools=[url_context],
         )
 
         # Main GAP Agent
@@ -78,12 +68,11 @@ Key Gaps
 Recommended Next Steps
 """,
             tools=[
-                agent_tool.AgentTool(agent=gap_discovery_agent_google_search_agent),
-                agent_tool.AgentTool(agent=gap_discovery_agent_url_context_agent)
+                agent_tool.AgentTool(agent=gap_discovery_agent_google_search_agent)
             ],
         )
 
-        # IMPORTANT: No session_service_builder (fixes your error)
+        # Initialize ADK App
         self.app = AdkApp(
             agent=root_agent
         )
