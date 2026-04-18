@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GAP Agent</title>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+  <h2>GAP Discovery Agent</h2>
+
+  <input id="input" placeholder="Type your answer..." style="width:300px;">
+  <button onclick="send()">Send</button>
+
+  <pre id="chat"></pre>
+
+  <script>
+    async function send() {
+      const msg = document.getElementById("input").value;
+      const res = await fetch(`/chat?message=${msg}`);
+      const data = await res.json();
+
+      document.getElementById("chat").innerText += "\nUser: " + msg;
+      document.getElementById("chat").innerText += "\nAgent: " + data.response + "\n";
+    }
+  </script>
+</body>
+</html>
