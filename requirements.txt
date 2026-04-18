@@ -2,3 +2,4 @@ fastapi
 uvicorn
 google-cloud-aiplatform
 google-adk==0.3.0
+deprecated
